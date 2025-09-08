@@ -81,3 +81,52 @@ class Student:
         if not isinstance(other, Student):
             return "Ошибка"
         return self.average_grade() < other.average_grade()
+
+student1 = Student('Ruoy', 'Eman', 'male')
+student2 = Student('Eve', 'Smith', 'female')
+lecturer1 = Lecturer('Some', 'Buddy')
+lecturer2 = Lecturer('John', 'Doe')
+reviewer1 = Reviewer('Other', 'Buddy')
+reviewer2 = Reviewer('Jane', 'Roe')
+
+student1.courses_in_progress += ['Python']
+student1.finished_courses += ['Введение в программирование']
+student2.courses_in_progress += ['Python', 'Git']
+lecturer1.courses_attached += ['Python']
+lecturer2.courses_attached += ['Git']
+reviewer1.courses_attached += ['Python']
+reviewer2.courses_attached += ['Git']
+
+student1.rate_lecturer(lecturer1, 'Python', 9)
+student2.rate_lecturer(lecturer1, 'Python', 10)
+reviewer1.rate_hw(student1, 'Python', 8)
+reviewer2.rate_hw(student2, 'Git', 9)
+
+def average_student_grade(students, course):
+    grades = []
+    for student in students:
+        if course in student.grades:
+            grades.extend(student.grades[course])
+    if grades:
+        return sum(grades) / len(grades)
+    return 0
+
+def average_lecturer_grade(lecturers, course):
+    grades = []
+    for lecturer in lecturers:
+        if course in lecturer.grades:
+            grades.extend(lecturer.grades[course])
+    if grades:
+        return sum(grades) / len(grades)
+    return 0
+
+print(student1)
+print(lecturer1)
+print(reviewer1)
+
+student_list = [student1, student2]
+lecturer_list = [lecturer1, lecturer2]
+
+print(average_student_grade(student_list, 'Python'))
+print(average_lecturer_grade(lecturer_list, 'Python'))
+print(lecturer1 < lecturer2)
